@@ -1,0 +1,72 @@
+Chapter Four : integrating event driven architecture with existing legacy system.
+
+Well this chapter mostly answered consideration about how we could decouple our data in legacy or existing system.
+We are introduced to something new as data liberation which Is the exact thing what we wanted using event stream solution.
+
+There are few tips and tricks to how implement the data liberation such cdc , query event , triggers and each pros and cons have been talked about.
+
+Core idea of doing data liberation is sourcing from existing system data and also store it in something called state store , this way event broker has access to it
+And can perform event streaming with it.
+
+Data liberation makes direct access from microservices to existing service and querying from it unrelavent.
+
+Lets dive deeper on data liberation system :
+First step is to make  a data sourcing mechanism which takes data from existing system and publish it into event stream.
+
+Second is to connect micro services to inject and consume that data from that event stream.
+
+This acts as dependency inversion principle in software architecture.
+
+There is a concept of materializing the events , in this method we must first publish our event to event stream and from that events we must do materialization.
+It is a best practice to have a materialized table or data from events when ever we are producing it because we may need to manage and rebuild the event stream.
+
+There is an issue coming out of this producer consumer method that we must consider and that is if the schema of the data changes , we will be forced to somehow
+Notify the consumer to get the new scheme and prevent from failure in our system.
+But there is a catch and that is consumer must not anyway have the duty of doing such a thing that request the schema at all.
+We have to come up with solutions that makes things up todate in our system.
+
+It is important to note that we must have just one source of truth and avoid multiple producers to produce our event stream.
+
+There is three way to produce event stream :
+First is to use a query based solution on the data store and every time it does a query and gets data needed and event stream runs.
+Second is the way of using the log , every data store would have a log file which we can go over it and read from it and produce the event stream.
+Third is using a intermediary table that firstly data goes there and then goes to event stream and gets deleted on table itself (this method requires  support from
+System to be transactional and also support queue mechanism.
+
+There are some data liberation which we can use , these technologies get full access on data store and make an event stream from that store.
+Most famous one may be the Kafka Connect.
+Kafka connect integration with Debazium and Kafka Kat would create a cool event stream pipeline as discussed below : 
+https://medium.com/@erickzanetti/kafka-connect-understanding-workers-and-converters-538abced86c8
+
+There is a common another way of doing event stream and data liberation which is query based approach.
+There are quite few ways of doing this discussed in below :
+
+Firstly it’s bulk loading from the data store , as it selects all data from data store at once.
+This is rather so expensive in large data sets.
+
+Secondly incremental timestamp loading , in this case we load datas larger updateAt column than previous loaded datas
+
+Auto incrementing id loading , it loads datas with ids larger than previously loaded from data store
+
+Custom querying, this method is used when we need some specific subset of data from a large set of data.
+
+Incremental updating , is used when in data we have some column that we can filer out the datas we already have loaded.
+
+Another way of liberating data is using CDC logs of database , in this case for mysql its a binary log and for Postgres is write ahead logs.
+Sourcing out data from change log is done by some technologies like Debazium , this way we do not couple directly to the data store .
+
+Another way to make this event stream is to use a change data table .
+This table is in sync with the original data store , all the create , update , delete operations are stored into this table and it is a transactional operation with data store.
+
+There is another issue and that is making sure that schema is compatible in both sides of the system meaning in outbox example both consumer and internal data store have a unique data.
+This consideration comes with handling using the serialization before committing data into tables principle which states that we need to serialize our data before writing it into data store and outbox store and sending to event stream and all that process is on a transaction and in case of failure we do not write that data at all.
+
+Another way of liberating data and making a table in sync with data store is using of triggers.
+But of course in a data intensive system with many tables this is so costly.
+
+There is another important problem when coming into the making an event stream out of data store and that is the fact DDL changes must be handled.
+In ways that we already discussed cdc logs and query pattern get to know any change after the fact that data has been changed in data store , and some of the other ways can handle it before the data set has changed.
+Both in query pattern and cdc log dd change inferred from data store and publish to the down stream for validation.
+Also debazium supports for data definition change in MySql.
+
+There is a concern that books tries to tell and that is over relaint over the cdc frameworks , this couples teams and not good .

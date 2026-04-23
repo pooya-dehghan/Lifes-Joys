@@ -1,0 +1,33 @@
+Chapter three communication and data contracts
+
+This chapter mainly discussed why we would like to have a schema defined for our producers and consumers.
+Concrete schema contracts helps us to narrow down bugs and errors in event driven architecture.
+
+Data contract is dimply format of data to be transferred and logic under it.
+Data contract is composed of two important parts firstly data definition such as fields and types etc. second is triggering logic , meaning
+Why this event was produced from the first place.
+
+It is best solution to have an explicit schema rather than implicit because implicit is susceptible for changes and would cause hardship to consumers.
+
+In a schema we could have two valuable comments as below : 
+1- triggering logic comments
+2- giving context and clarity of field
+
+There is an important concept called schema evolution support , this concept implies that producer could change data definition without intrupting the 
+Down stream consumers.
+Evolutionary rules have three types of compatibility to could fall under this evolution support
+First one is forward compatibility which means , producer giving data with newly data schema with ability to be read as data with older schema.
+Backward compatibility which is data with old schema could be read as data with newly defined schema.
+Full compatibility which is union of two above.
+
+Pages 44 , 45 were difficult
+
+Best thing is to write data definition with some strict technology like protobuff Avro.
+
+It is best practice to just use singular event definition per stream.
+
+Do not use type filed in event definition put each one to its own definition.
+
+
+Always keep event sizes small.
+

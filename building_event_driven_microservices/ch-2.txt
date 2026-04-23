@@ -1,0 +1,26 @@
+Chapter Two Event Driven Microservices Fundamentals
+
+Firstly the learned topology In micro services and in business.
+Then that an event could be anything in scope of that business like booking a room , buying an asset etc.
+
+Also gave information of structure of an event , events are normally are built from a key value pair structure which are grouped in three
+Subtree as below : 
+
+Unkeyed events
+Entity events
+Keyed Events
+
+For first time I was introduced to some new concept as materialize state from entity events.
+This Is when we would make a table like a sql table from events normally including key , value pair data.
+
+Principle of single writer or single micro service producer.
+This is rather important because the source of truth is known and that matters to us.
+
+Event Brokers and Message Brokers were discussed that message broker normally is a sub and drived concept from event broker
+There are two main difference and. First is that event broker store the events like a database and consumers could start and finish where ever and when ever
+They need and also another thing that is event brokers give a full access to each consumer that may come to need it , you see message brokers use queue structure
+And if there are multiple consumer each gets to use only a subset of events and cannot access to a full copy of them.
+
+Talked about event stream and offset consumer group concepts.
+
+Finally book gave insights about container and virtual machine deployments.

@@ -1,0 +1,16 @@
+Chapter Five: Event driven processing basis
+
+This chapter is rather easy and really short, mainly discusses about the process that usually occurs in an event driven system.
+First it talks about micro services topology in stateless mode and how it doest save any data and then does some functionality and operations on the data along with passing from input to output.
+
+Transformation is another subject that it covers, filtering , map , map value and custom transforms are rather these things.
+
+Along side the transformation there is another side of micro service topology in stateless mode is branching and merging , this one is about how to shift streams or make some relatively changed stream out of one stream or even merge two streams together.
+
+Book then talks about repartitioning which is act of producing new event stream with some of the following properties. : 
+Different partition count , different event key , different event partition.
+
+Copartitionening is similar to repartionening and that is when we like to join two streams.
+
+Partition assignment is another concept that with each technology it differs in implementation such as client consumer group leader in apache kafka takes ownership of partition assignment and apache pulsar has a core system for this.
+

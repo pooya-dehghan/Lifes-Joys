@@ -1,0 +1,12 @@
+Chapter One , Why Event Driven Microservices
+
+
+This chapter primarily intended to introduce some basic problems in realm of software engineering.
+For example the book gave an example of structure of a company that three subdomain like engineering , sales, marketing were intended to talk to each other and 
+Communicate.
+
+This chapter briefly introduced DDD and its integration with service architecture.
+
+Also it talked about data communication structure as mainly making architecture for services.
+
+Also it covered synchronous and asynchronous communication between micro services which I was familiar with for a long time now.

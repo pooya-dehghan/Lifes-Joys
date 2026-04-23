@@ -1,0 +1,6 @@
+Chapter six : Deterministic stream processing
+
+This chapter is the hardest one till now for me .
+It talks mainly about late events , ordering and algorithms to make sure we have a reliable stream of events.
+Many examples and scenarios have been discussed through this chapter.
+
